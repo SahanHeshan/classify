@@ -219,3 +219,6 @@ tr:hover {
     gap: 10px;
   }
 }
+#logoutBtn:hover {
+  background: #ea667c;
+}
