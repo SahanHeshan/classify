@@ -1,0 +1,113 @@
+<!-- temporary mechanism - page meight  not be needed -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Classify+</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/signup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">C+</div>
+          <div class="logo-text">
+            <h1>Classify+</h1>
+            <p>Faculty of Geomatics - SUSL</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="signup-container">
+      <div class="signup-box">
+        <h2>Create Account</h2>
+        <p class="subtitle">Join Classify+ Academic Portal</p>
+
+        <div id="errorMessage" class="error-message"></div>
+
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="indexNo">Index Number *</label>
+            <input
+              type="text"
+              id="indexNo"
+              placeholder="e.g., 21GES1440"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password *</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Minimum 6 characters"
+              required
+              minlength="6"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password *</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Re-enter password"
+              required
+              minlength="6"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="program">Program</label>
+            <select id="program">
+              <option value="BSc Geomatics">BSc Geomatics</option>
+              <option value="BSc Surveying Sciences">
+                BSc Surveying Sciences
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="batch">Batch</label>
+            <select id="batch">
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+
+        <div class="login-link">
+          Already have an account? <a href="login.html">Login here</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Faculty of Geomatics, SUSL. All rights reserved.</p>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/signup.js"></script>
+  </body>
+</html>

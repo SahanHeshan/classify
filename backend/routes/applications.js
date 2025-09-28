@@ -3,12 +3,14 @@ const router = express.Router();
 const db = require('../config/db');
 const { authenticateToken } = require('../middleware/auth');
 
-// Get application status
 router.get('/status', authenticateToken, async (req, res) => {
     try {
+        const [student] = await db.query('SELECT indexNo FROM students WHERE id = ?', [req.user.id]);
+        const indexNo = student[0].indexNo;
+
         const [applications] = await db.query(
-            'SELECT * FROM applications WHERE student_id = ? ORDER BY id DESC LIMIT 1',
-            [req.user.id]
+            'SELECT * FROM applications WHERE indexNo = ? ORDER BY id DESC LIMIT 1',
+            [indexNo]
         );
 
         if (applications.length === 0) {
@@ -22,7 +24,6 @@ router.get('/status', authenticateToken, async (req, res) => {
     }
 });
 
-// Submit application
 router.post('/submit', authenticateToken, async (req, res) => {
     try {
         const { choice1, choice2, choice3 } = req.body;
@@ -35,10 +36,12 @@ router.post('/submit', authenticateToken, async (req, res) => {
             return res.status(400).json({ error: 'Please select different specialisations' });
         }
 
-        // Check if already applied
+        const [student] = await db.query('SELECT indexNo FROM students WHERE id = ?', [req.user.id]);
+        const indexNo = student[0].indexNo;
+
         const [existing] = await db.query(
-            'SELECT * FROM applications WHERE student_id = ?',
-            [req.user.id]
+            'SELECT * FROM applications WHERE indexNo = ?',
+            [indexNo]
         );
 
         if (existing.length > 0) {
@@ -46,8 +49,8 @@ router.post('/submit', authenticateToken, async (req, res) => {
         }
 
         await db.query(
-            'INSERT INTO applications (student_id, choice1, choice2, choice3, status, applied_date) VALUES (?, ?, ?, ?, ?, NOW())',
-            [req.user.id, choice1, choice2, choice3, 'Pending']
+            'INSERT INTO applications (indexNo, choice1, choice2, choice3, status, applied_date) VALUES (?, ?, ?, ?, ?, NOW())',
+            [indexNo, choice1, choice2, choice3, 'Pending']
         );
 
         res.json({ message: 'Application submitted successfully' });

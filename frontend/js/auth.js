@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const email = document.getElementById('email').value.trim();
+        const indexNo = document.getElementById('indexNo').value.trim();
         const password = document.getElementById('password').value;
 
         // Clear previous errors
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         errorDiv.textContent = '';
 
         // Basic validation
-        if (!email || !password) {
+        if (!indexNo || !password) {
             showError('Please fill in all fields');
             return;
         }
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             // Make API call
-            const result = await apiCall('/auth/login', 'POST', { email, password });
+            const result = await apiCall('/auth/login', 'POST', { indexNo, password });
 
             // Store token and student data
             localStorage.setItem('token', result.token);

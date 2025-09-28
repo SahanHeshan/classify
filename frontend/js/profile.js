@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         document.getElementById('studentName').textContent = profile.name;
         document.getElementById('profileName').textContent = profile.name;
-        document.getElementById('profileEmail').textContent = profile.email;
+        document.getElementById('profileIndex').textContent = profile.indexNo;
         document.getElementById('profileProgram').textContent = profile.program;
         document.getElementById('profileBatch').textContent = profile.batch;
 

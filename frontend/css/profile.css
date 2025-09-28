@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+header {
+  background: white;
+  padding: 20px 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo h1 {
+  color: #667eea;
+  font-size: 24px;
+}
+.user-info {
+  color: #666;
+  font-weight: 500;
+}
+nav {
+  background: white;
+  padding: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+nav a {
+  display: block;
+  padding: 15px 25px;
+  color: #666;
+  text-decoration: none;
+  transition: 0.3s;
+}
+nav a:hover,
+nav a.active {
+  background: #667eea;
+  color: white;
+}
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+.profile-card {
+  padding: 40px;
+  border-radius: 10px;
+}
+.profile-card h3 {
+  color: #667eea;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+.profile-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.profile-label {
+  font-weight: 600;
+  color: #666;
+  width: 150px;
+}
+.profile-value {
+  color: #333;
+}

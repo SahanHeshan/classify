@@ -56,3 +56,7 @@ CREATE TABLE IF NOT EXISTS applications (
   FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
 );
 ```
+
+# create password hash
+
+node test-password.js

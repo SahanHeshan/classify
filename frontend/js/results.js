@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Check authentication
     if (!isAuthenticated()) {
         window.location.href = 'login.html';
         return;
@@ -8,45 +7,109 @@ document.addEventListener('DOMContentLoaded', async () => {
     const student = getStudentData();
     document.getElementById('studentName').textContent = student.name;
 
+    let allResults = [];
+
     try {
-        // Fetch GPA
+        // Fetch overall GPA
         const gpaData = await apiCall('/students/gpa');
         document.getElementById('gpaValue').textContent = gpaData.gpa;
-        document.getElementById('fgpaValue').textContent = gpaData.gpa; // Same for now
+        document.getElementById('totalCourses').textContent = gpaData.totalCourses;
 
         // Fetch results
-        const results = await apiCall('/students/results');
-        displayResults(results);
+        allResults = await apiCall('/students/results');
+        displayResults(allResults);
+        populateSemesterFilter(allResults);
 
     } catch (error) {
         console.error('Results error:', error);
+        const container = document.getElementById('resultsContainer');
+        container.innerHTML = '<div class="no-data">Failed to load results. Please try again.</div>';
+        
         if (error.message.includes('token')) {
             logout();
         }
     }
 
-    function displayResults(results) {
-        const tbody = document.querySelector('#resultsTable tbody');
-        tbody.innerHTML = '';
+    function displayResults(results, filterSemester = 'all') {
+        const container = document.getElementById('resultsContainer');
+        container.innerHTML = '';
 
         if (results.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No results available</td></tr>';
+            container.innerHTML = '<div class="no-data">No results available yet.</div>';
             return;
         }
 
+        // Group results by semester
+        const resultsBySemester = {};
         results.forEach(result => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${result.subject_code}</td>
-                <td>${result.subject_name}</td>
-                <td><span class="grade-badge">${result.grade}</span></td>
-                <td>${parseFloat(result.gpa).toFixed(2)}</td>
+            if (!resultsBySemester[result.semester]) {
+                resultsBySemester[result.semester] = [];
+            }
+            resultsBySemester[result.semester].push(result);
+        });
+
+        const sortedSemesters = Object.keys(resultsBySemester).sort((a, b) => a - b);
+
+        sortedSemesters.forEach(semester => {
+            if (filterSemester !== 'all' && semester !== filterSemester) {
+                return;
+            }
+
+            const semesterResults = resultsBySemester[semester];
+            
+            const semesterGPA = semesterResults[0].gpa || 'N/A';
+
+
+            const semesterDiv = document.createElement('div');
+            semesterDiv.className = 'semester-section';
+            
+            semesterDiv.innerHTML = `
+                <div class="semester-header">
+                    <h3>${semester}</h3>
+                    <div class="semester-gpa">Semester GPA: ${semesterGPA}</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject Name</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${semesterResults.map(result => `
+                            <tr>
+                                <td>${result.subject_name}</td>
+                                <td><span class="grade-badge">${result.grade}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
             `;
-            tbody.appendChild(row);
+
+            container.appendChild(semesterDiv);
+        });
+
+        if (container.children.length === 0) {
+            container.innerHTML = '<div class="no-data">No results for selected semester.</div>';
+        }
+    }
+
+    function populateSemesterFilter(results) {
+        const select = document.getElementById('semesterSelect');
+        const semesters = [...new Set(results.map(r => r.semester))].sort((a, b) => a - b);
+
+        semesters.forEach(semester => {
+            const option = document.createElement('option');
+            option.value = semester;
+            option.textContent = `${semester}`;
+            select.appendChild(option);
+        });
+
+        select.addEventListener('change', (e) => {
+            displayResults(allResults, e.target.value);
         });
     }
 
-    // Logout handler
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
