@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Classify+ - Faculty of Geomatics, SUSL</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        background: white;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 140px 20px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-images {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+      .hero-images img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+      .hero-images img.active {
+        opacity: 1;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+      .hero-content {
+        max-width: 800px;
+        z-index: 2;
+        position: relative;
+      }
+      .hero h1 {
+        font-size: 4rem;
+        margin-bottom: 30px;
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+      }
+      .hero p {
+        font-size: 1.4rem;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .login-button {
+        display: inline-block;
+        background: linear-gradient(45deg, #e74c3c, #c0392b);
+        color: white;
+        padding: 15px 40px;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+        position: relative;
+        overflow: hidden;
+      }
+      .login-button:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 40px rgba(231, 76, 60, 0.6);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+      .logo-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        margin-right: 15px;
+      }
+      .logo-text h1 {
+        color: #667eea;
+        font-size: 28px;
+      }
+      .logo-text p {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .about {
+        background: white;
+        padding: 100px 20px;
+        margin-top: -50px;
+      }
+      .about-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .about h2 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        color: #2c3e50;
+      }
+
+      .features {
+        background: #f8f9fa;
+        padding: 100px 20px;
+      }
+      .features-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .features h2 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #2c3e50;
+        text-align: center;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+      }
+      .feature-card {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s;
+      }
+      .feature-card:hover {
+        transform: translateY(-8px);
+      }
+      .feature-icon {
+        font-size: 42px;
+        margin-bottom: 15px;
+      }
+
+      footer {
+        background: #2c3e50;
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1.1rem;
+        }
+        .about h2,
+        .features h2 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">C+</div>
+          <div class="logo-text">
+            <h1>Classify+</h1>
+            <p>Faculty of Geomatics - SUSL</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-images">
+        <img
+          src="./assets/images/compu.jpg"
+          alt="Education Image 1"
+          class="active"
+        />
+        <img src="./assets/images/com2.jpg" alt="Education Image 2" />
+        <img src="./assets/images/uni.jpg" alt="Education Image 3" />
+        <img src="./assets/images/ts.jpg" alt="Education Image 4" />
+      </div>
+      <div class="hero-content">
+        <h1>Welcome to Classify+</h1>
+        <p>
+          Your intelligent platform for academic specialization and student
+          profile management.
+        </p>
+        <a href="login.html" class="login-button">Start Your Journey</a>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="about-content">
+        <h2>About Classify+</h2>
+        <p>
+          Classify+ revolutionizes academic management at the Faculty of
+          Geomatics, Sabaragamuwa University of Sri Lanka.
+        </p>
+        <p>
+          Experience seamless profile management, real-time GPA tracking, and
+          personalized academic guidance all in one powerful platform.
+        </p>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="features-content">
+        <h2>Powerful Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Smart Analytics</h3>
+            <p>
+              Track your GPA, FGPA, and academic progress with intelligent
+              insights.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Specialization Matching</h3>
+            <p>
+              Get matched with the perfect specialization based on your goals.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📚</div>
+            <h3>Course Management</h3>
+            <p>
+              Monitor course completions and plan your academic pathway
+              efficiently.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏆</div>
+            <h3>Achievement Portfolio</h3>
+            <p>
+              Upload and showcase your research projects, certificates, and
+              achievements.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        &copy; 2025 Faculty of Geomatics, Sabaragamuwa University of Sri Lanka.
+        All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      if (localStorage.getItem("token")) {
+        window.location.href = "dashboard.html";
+      }
+    </script>
+  </body>
+</html>

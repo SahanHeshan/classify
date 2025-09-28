@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Specialisation - Classify+</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+      header {
+        background: white;
+        padding: 20px 40px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo h1 {
+        color: #667eea;
+        font-size: 24px;
+      }
+      .user-info {
+        color: #666;
+        font-weight: 500;
+      }
+      nav {
+        background: white;
+        padding: 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      nav a {
+        display: block;
+        padding: 15px 25px;
+        color: #666;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+      nav a:hover,
+      nav a.active {
+        background: #667eea;
+        color: white;
+      }
+      .container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+      h2 {
+        color: white;
+        margin-bottom: 20px;
+      }
+      .form-container {
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+      }
+      .form-group select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+      .form-group select:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 12px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-primary:hover {
+        background: #5568d3;
+      }
+      .btn-primary:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      .success-message {
+        background: #efe;
+        color: #3c3;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+      }
+      .error-message {
+        background: #fee;
+        color: #c33;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+      }
+      .info-box {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+      }
+      .info-box h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+      }
+      .info-box p {
+        margin-bottom: 10px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo"><h1>Classify+</h1></div>
+      <div class="user-info">
+        Welcome, <span id="studentName">Student</span>
+      </div>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="specialisation.html" class="active">Specialisation</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h2>Specialisation Application</h2>
+
+      <div id="successMessage" class="success-message"></div>
+      <div id="errorMessage" class="error-message"></div>
+
+      <div id="existingApplication" style="display: none">
+        <div class="info-box">
+          <h3>Your Current Application</h3>
+          <p><strong>Status:</strong> <span id="appStatus"></span></p>
+          <p><strong>1st Choice:</strong> <span id="appChoice1"></span></p>
+          <p><strong>2nd Choice:</strong> <span id="appChoice2"></span></p>
+          <p><strong>3rd Choice:</strong> <span id="appChoice3"></span></p>
+          <p><strong>Applied Date:</strong> <span id="appDate"></span></p>
+        </div>
+      </div>
+
+      <div id="newApplication">
+        <form id="applicationForm" class="form-container">
+          <div class="form-group">
+            <label for="choice1">First Choice *</label>
+            <select name="choice1" id="choice1" required>
+              <option value="">Select specialisation</option>
+              <option value="GIS and Remote Sensing">
+                GIS and Remote Sensing
+              </option>
+              <option value="Land Survey and Geoinformatics">
+                Land Survey and Geoinformatics
+              </option>
+              <option value="Hydrography">Hydrography</option>
+              <option value="Geodesy">Geodesy</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="choice2">Second Choice *</label>
+            <select name="choice2" id="choice2" required>
+              <option value="">Select specialisation</option>
+              <option value="GIS and Remote Sensing">
+                GIS and Remote Sensing
+              </option>
+              <option value="Land Survey and Geoinformatics">
+                Land Survey and Geoinformatics
+              </option>
+              <option value="Hydrography">Hydrography</option>
+              <option value="Geodesy">Geodesy</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="choice3">Third Choice *</label>
+            <select name="choice3" id="choice3" required>
+              <option value="">Select specialisation</option>
+              <option value="GIS and Remote Sensing">
+                GIS and Remote Sensing
+              </option>
+              <option value="Land Survey and Geoinformatics">
+                Land Survey and Geoinformatics
+              </option>
+              <option value="Hydrography">Hydrography</option>
+              <option value="Geodesy">Geodesy</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary">Submit Application</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/specialisation.js"></script>
+  </body>
+</html>
